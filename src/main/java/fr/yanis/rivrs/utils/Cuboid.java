@@ -137,6 +137,11 @@ public class Cuboid implements ConfigurationSerializable {
         return new Location(this.getWorld(), centerX, centerY, centerZ);
     }
 
+    public void save(){
+        RMain.getInstance().getConfig().set("cuboid", this);
+        RMain.getInstance().saveConfig();
+    }
+
     @Override
     public @NotNull Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
