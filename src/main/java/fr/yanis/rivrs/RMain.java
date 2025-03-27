@@ -12,21 +12,6 @@ public final class RMain extends JavaPlugin {
     @Override
     public void onEnable() {
         ConfigurationSerialization.registerClass(Cuboid.class);
-
-        this.getConfig().addDefault("redis.host", "localhost");
-        this.getConfig().addDefault("redis.port", 6379);
-        this.getConfig().addDefault("redis.password", "");
-        this.getConfig().addDefault("redis.database", 0);
-
-        this.getConfig().addDefault("mariadb.host", "localhost");
-        this.getConfig().addDefault("mariadb.port", 3306);
-        this.getConfig().addDefault("mariadb.database", "rivrs");
-        this.getConfig().addDefault("mariadb.user", "root");
-        this.getConfig().addDefault("mariadb.password", "");
-
-        this.getConfig().addDefault("rabbitmq.host", "localhost");
-        this.getConfig().addDefault("rabbitmq.port", 5672);
-
         this.saveDefaultConfig();
         this.loadCuboid();
 

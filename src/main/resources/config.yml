@@ -1,0 +1,23 @@
+# Configuration de la connexion à Redis
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  database: 0
+
+# Configuration de la connexion à MariaDB
+mariadb:
+  host: "localhost"
+  port: 3306
+  database: "rivrs"
+  user: "root"
+  password: ""
+
+# Configuration de RabbitMQ
+rabbitmq:
+  host: "localhost"
+  port: 5672
+
+# Configuration du jeu
+game:
+  points_interval: 20 # Intervalle en ticks pour l'incrémentation des points
