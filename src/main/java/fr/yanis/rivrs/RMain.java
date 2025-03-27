@@ -25,7 +25,7 @@ public final class RMain extends JavaPlugin {
     public void loadCuboid(){
         Cuboid cuboid = this.getConfig().getSerializable("cuboid", Cuboid.class);
         if(cuboid != null){
-            getLogger().info("Cuboid chargé: " + cuboid.serialize());
+            getLogger().info("Zone chargée avec succès !");
         }
     }
 
