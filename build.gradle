@@ -25,6 +25,9 @@ dependencies {
     implementation("redis.clients:jedis:4.3.1")
 
     implementation("com.rabbitmq:amqp-client:5.16.0")
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 def targetJavaVersion = 21
