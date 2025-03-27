@@ -1,0 +1,6 @@
+name: RivrsTest
+version: '1.0-SNAPSHOT'
+main: fr.yanis.rivrs.RMain
+api-version: '1.21'
+authors: [ YanisB ]
+website: https://yanis-benyacine.fr
