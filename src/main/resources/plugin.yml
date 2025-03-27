@@ -4,3 +4,14 @@ main: fr.yanis.rivrs.RMain
 api-version: '1.21'
 authors: [ YanisB ]
 website: https://yanis-benyacine.fr
+
+commands:
+  setpos:
+    description: Définit la postion x de la zone
+    usage: /setpos <x>
+    permission: rivrs.admin.setpos
+
+permissions:
+  rivrs.admin.setpos:
+    description: Permet de définir la position x de la zone
+    default: op
