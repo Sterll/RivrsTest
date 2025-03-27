@@ -1,17 +1,18 @@
 package fr.yanis.rivrs.utils;
 
+import fr.yanis.rivrs.RMain;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-public class Cuboid {
+public class Cuboid implements ConfigurationSerializable {
 
     private final String worldName;
     @Getter
@@ -136,25 +137,30 @@ public class Cuboid {
         return new Location(this.getWorld(), centerX, centerY, centerZ);
     }
 
-    public static void deserialize(String data){
-        String[] parts = data.split(";");
-        String worldName = parts[0];
-        int xMin = Integer.parseInt(parts[1]);
-        int xMax = Integer.parseInt(parts[2]);
-        int yMin = Integer.parseInt(parts[3]);
-        int yMax = Integer.parseInt(parts[4]);
-        int zMin = Integer.parseInt(parts[5]);
-        int zMax = Integer.parseInt(parts[6]);
+    @Override
+    public @NotNull Map<String, Object> serialize() {
+        Map<String, Object> map = new HashMap<>();
 
-        new Cuboid(new Location(Bukkit.getWorld(worldName), xMin, yMin, zMin), new Location(Bukkit.getWorld(worldName), xMax, yMax, zMax));
+        map.put("world", this.worldName);
+        map.put("xMin", this.xMin);
+        map.put("xMax", this.xMax);
+        map.put("yMin", this.yMin);
+        map.put("yMax", this.yMax);
+        map.put("zMin", this.zMin);
+        map.put("zMax", this.zMax);
+
+        return map;
     }
 
-    public String serialize(){
-        return this.worldName + ";" + this.xMin + ";" + this.xMax + ";" + this.yMin + ";" + this.yMax + ";" + this.zMin + ";" + this.zMax;
-    }
+    public static Cuboid deserialize(@NotNull Map<String, Object> map) {
+        String worldName = (String) map.get("world");
+        int xMin = (int) map.get("xMin");
+        int xMax = (int) map.get("xMax");
+        int yMin = (int) map.get("yMin");
+        int yMax = (int) map.get("yMax");
+        int zMin = (int) map.get("zMin");
+        int zMax = (int) map.get("zMax");
 
-    public static void toConfig(String path, Cuboid cuboid){
-        String data = cuboid.serialize();
-
+        return new Cuboid(new Location(Bukkit.getWorld(worldName), 0, 0, 0), new Location(Bukkit.getWorld(worldName), 0, 0, 0));
     }
 }
