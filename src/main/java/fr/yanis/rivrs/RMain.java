@@ -1,6 +1,7 @@
 package fr.yanis.rivrs;
 
 import fr.yanis.rivrs.event.ZoneListener;
+import fr.yanis.rivrs.manager.ZoneManager;
 import fr.yanis.rivrs.utils.Cuboid;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -28,6 +29,8 @@ public final class RMain extends JavaPlugin {
         Cuboid cuboid = this.getConfig().getSerializable("cuboid", Cuboid.class);
         if(cuboid != null){
             getLogger().info("Zone chargée avec succès !");
+
+            new ZoneManager(cuboid, this.getConfig().getInt("game.points_interval"));
         }
     }
 
