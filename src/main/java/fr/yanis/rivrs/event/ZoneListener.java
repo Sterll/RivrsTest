@@ -10,12 +10,12 @@ public class ZoneListener implements Listener {
 
     @EventHandler
     public void onEnter(PlayerEnterZoneEvent e){
-
+        e.getZone().addPlayer(e.getPlayer().getUniqueId());
     }
 
     @EventHandler
     public void onExit(PlayerExitZoneEvent e){
-
+        e.getZone().removePlayer(e.getPlayer().getUniqueId());
     }
 
 }
