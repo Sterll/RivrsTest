@@ -14,4 +14,8 @@ public final class RMain extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    public static RMain getInstance() {
+        return getPlugin(RMain.class);
+    }
 }
