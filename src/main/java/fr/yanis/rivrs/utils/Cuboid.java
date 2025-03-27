@@ -166,6 +166,13 @@ public class Cuboid implements ConfigurationSerializable {
         int zMin = (int) map.get("zMin");
         int zMax = (int) map.get("zMax");
 
-        return new Cuboid(new Location(Bukkit.getWorld(worldName), 0, 0, 0), new Location(Bukkit.getWorld(worldName), 0, 0, 0));
+        World world = Bukkit.getWorld(worldName);
+        if (world == null) {
+            throw new IllegalArgumentException("World " + worldName + " is not loaded");
+        }
+
+        Location loc1 = new Location(world, xMin, yMin, zMin);
+        Location loc2 = new Location(world, xMax, yMax, zMax);
+        return new Cuboid(loc1, loc2);
     }
 }
