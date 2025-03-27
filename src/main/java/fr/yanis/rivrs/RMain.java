@@ -1,5 +1,6 @@
 package fr.yanis.rivrs;
 
+import fr.yanis.rivrs.event.ZoneListener;
 import fr.yanis.rivrs.utils.Cuboid;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -15,6 +16,7 @@ public final class RMain extends JavaPlugin {
         this.saveDefaultConfig();
         this.loadCuboid();
 
+        this.getServer().getPluginManager().registerEvents(new ZoneListener(), this);
     }
 
     @Override
