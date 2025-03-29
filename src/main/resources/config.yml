@@ -10,6 +10,8 @@ mariadb:
 rabbitmq:
   host: "localhost"
   port: 5672
+  username: ""
+  password: ""
 
 # Configuration du jeu
 game:
