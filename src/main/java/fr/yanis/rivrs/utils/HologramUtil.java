@@ -10,9 +10,12 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class HologramUtil {
+
+    private static HashMap<UUID, Integer> entityIdMap = new HashMap<>();
 
     private static int nextEntityId = 1000;
 
@@ -47,10 +50,29 @@ public class HologramUtil {
 
         metaPacket.getWatchableCollectionModifier().write(0, watcher.getWatchableObjects());
 
+        entityIdMap.put(target.getUniqueId(), entityId);
+
         try {
             protocolManager.sendServerPacket(target, metaPacket);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void removeTextDisplay(Player target) {
+        int entityId = entityIdMap.getOrDefault(target.getUniqueId(), -1);
+        if (entityId != -1) {
+            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+            PacketContainer destroyPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
+            destroyPacket.getIntegerArrays().write(0, new int[]{entityId});
+
+            try {
+                protocolManager.sendServerPacket(target, destroyPacket);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            entityIdMap.remove(target.getUniqueId());
         }
     }
 }
