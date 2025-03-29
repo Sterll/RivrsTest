@@ -43,6 +43,7 @@ public class ScoreListener implements Listener {
                 ps.close();
 
                 new ScoreManager(uuid, score);
+                RMain.getInstance().getRabbitMQManager().publishMessage("create:" + uuid + ":" + score);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
