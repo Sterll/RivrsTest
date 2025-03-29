@@ -28,6 +28,10 @@ public class HologramUtil {
         return nextEntityId--;
     }
 
+    public static boolean hasTextDisplay(Player target) {
+        return entityIdMap.containsKey(target.getUniqueId());
+    }
+
     public static void spawnTextDisplay(Player target, Location location, String text) {
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
         if (protocolManager == null) {

@@ -47,7 +47,8 @@ public class ScoreMessageConsumer extends DefaultConsumer {
 
                             if (target != null) {
                                 String holo_message = RMain.getInstance().getConfig().getString("messages.HOLOGRAM_NAME").replace("%count%", String.valueOf( ScoreManager.getScoreManager(target.getUniqueId()).getScore().get()));
-                                HologramUtil.updateTextDisplay(target, holo_message);
+                                if (HologramUtil.hasTextDisplay(target))
+                                    HologramUtil.updateTextDisplay(target, holo_message);
                             }
 
                             RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
@@ -72,7 +73,8 @@ public class ScoreMessageConsumer extends DefaultConsumer {
 
                             if (target != null) {
                                 String holo_message = RMain.getInstance().getConfig().getString("messages.HOLOGRAM_NAME").replace("%count%", String.valueOf( ScoreManager.getScoreManager(target.getUniqueId()).getScore().get()));
-                                HologramUtil.updateTextDisplay(target, holo_message);
+                                if (HologramUtil.hasTextDisplay(target))
+                                    HologramUtil.updateTextDisplay(target, holo_message);
                             }
 
                             RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
