@@ -23,6 +23,12 @@ public class DatabaseManager {
 
         String baseJdbcUrl = "jdbc:mariadb://" + host + ":" + port;
 
+        try {
+            Class.forName("fr.yanis.rivrs.shaded.mariadb.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         try (Connection conn = DriverManager.getConnection(baseJdbcUrl, user, password); Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + database);
         } catch (SQLException e) {
@@ -35,6 +41,8 @@ public class DatabaseManager {
         config.setJdbcUrl(jdbcUrl);
         config.setUsername(user);
         config.setPassword(password);
+
+        config.setDriverClassName("fr.yanis.rivrs.shaded.mariadb.Driver");
 
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");

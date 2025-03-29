@@ -25,7 +25,7 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
 
-    implementation("org.mariadb.jdbc:mariadb-java-client:3.0.8")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.1.4")
 
     implementation("com.rabbitmq:amqp-client:5.16.0")
 
@@ -68,4 +68,8 @@ shadowJar {
     archiveClassifier.set('')
     relocate 'com.zaxxer.hikari', 'fr.yanis.rivrs.shaded.hikari'
     relocate 'org.mariadb.jdbc', 'fr.yanis.rivrs.shaded.mariadb'
+    mergeServiceFiles {
+        include 'META-INF/services/java.sql.Driver'
+    }
 }
+
