@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeoutException;
 
 @Getter
@@ -43,11 +44,13 @@ public class RabbitMQConnectionManager {
      * Publie un message
      */
     public void publishMessage(String message) {
-        try {
-            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CompletableFuture.runAsync(() -> {
+            try {
+                channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes(StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void startScoreConsumer() {
