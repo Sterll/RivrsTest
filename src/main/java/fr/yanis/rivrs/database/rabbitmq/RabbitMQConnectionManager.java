@@ -32,6 +32,9 @@ public class RabbitMQConnectionManager {
             connection = factory.newConnection();
             channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT, true);
+
+            startScoreConsumer();
+
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
