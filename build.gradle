@@ -30,7 +30,7 @@ dependencies {
 
     implementation("com.rabbitmq:amqp-client:5.16.0")
 
-    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "5.4.0";
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "5.3.0";
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
