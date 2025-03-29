@@ -24,9 +24,11 @@ public class RabbitMQConnectionManager {
 
             String username = RMain.getInstance().getConfig().getString("rabbitmq.username");
             String password = RMain.getInstance().getConfig().getString("rabbitmq.password");
+            String virtualHost = RMain.getInstance().getConfig().getString("rabbitmq.virtualhost");
 
             if (username != null && password != null) {
                 factory.setUsername(username);
+                factory.setVirtualHost(virtualHost);
                 factory.setPassword(password);
             }
 

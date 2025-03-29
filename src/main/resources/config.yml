@@ -12,6 +12,7 @@ rabbitmq:
   port: 5672
   username: ""
   password: ""
+  virtualhost: ""
 
 # Configuration du jeu
 game:
