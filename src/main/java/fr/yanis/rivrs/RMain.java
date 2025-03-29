@@ -35,7 +35,8 @@ public final class RMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        if (databaseManager != null)
+            databaseManager.close();
     }
 
     public void loadCuboid(){
