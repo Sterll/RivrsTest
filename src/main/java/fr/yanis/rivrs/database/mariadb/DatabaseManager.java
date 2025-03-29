@@ -25,7 +25,6 @@ public class DatabaseManager {
 
         try (Connection conn = DriverManager.getConnection(baseJdbcUrl, user, password); Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + database);
-            createTables();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,6 +41,8 @@ public class DatabaseManager {
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
         dataSource = new HikariDataSource(config);
+
+        createTables();
     }
 
     public Connection getConnection() throws SQLException {
