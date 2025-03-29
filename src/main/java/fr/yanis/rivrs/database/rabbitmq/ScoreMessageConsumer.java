@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ScoreMessageConsumer extends DefaultConsumer {
 
@@ -34,7 +35,7 @@ public class ScoreMessageConsumer extends DefaultConsumer {
                             ScoreManager scoreManager = ScoreManager.getScoreManager(playerUUID);
 
                             if (scoreManager != null) {
-                                scoreManager.setScore(newScore);
+                                scoreManager.setScore(new AtomicInteger(newScore));
                             } else {
                                 scoreManager = new ScoreManager(playerUUID, newScore);
                             }
