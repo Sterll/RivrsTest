@@ -52,7 +52,9 @@ public class CommandZone implements CommandExecutor {
             ZoneManager.getINSTANCE().setCuboid(cuboid);
         }
 
-        return false;
+        ZoneManager.getINSTANCE().saveCuboid();
+
+        return true;
     }
 
 }

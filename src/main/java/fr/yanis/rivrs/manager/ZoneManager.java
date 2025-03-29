@@ -88,4 +88,9 @@ public class ZoneManager {
         this.players.remove(uuid);
     }
 
+    public void saveCuboid() {
+        RMain.getInstance().getConfig().set("cuboid", this.cuboid);
+        RMain.getInstance().saveConfig();
+    }
+
 }
