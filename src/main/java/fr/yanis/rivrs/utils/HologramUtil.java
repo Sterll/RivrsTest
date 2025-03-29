@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.wrappers.MinecraftKey;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import org.bukkit.Location;
@@ -33,7 +34,7 @@ public class HologramUtil {
         spawnPacket.getDoubles().write(0, location.getX());
         spawnPacket.getDoubles().write(1, location.getY());
         spawnPacket.getDoubles().write(2, location.getZ());
-        spawnPacket.getIntegers().write(1, 106);
+        spawnPacket.getMinecraftKeys().write(1, new MinecraftKey("minecraft:text_display"));
 
         try {
             protocolManager.sendServerPacket(target, spawnPacket);
@@ -44,17 +45,9 @@ public class HologramUtil {
         PacketContainer metaPacket = protocolManager.createPacket(PacketType.Play.Server.ENTITY_METADATA);
         metaPacket.getIntegers().write(0, entityId);
 
-        WrappedChatComponent chatComponent = WrappedChatComponent.fromJson("{\"text\":\"" + text + "\"}");
         WrappedDataWatcher watcher = new WrappedDataWatcher();
-
-        WrappedDataWatcher.WrappedDataWatcherObject dataWatcherObject =
-                new WrappedDataWatcher.WrappedDataWatcherObject(
-                        10,
-                        WrappedDataWatcher.Registry.getChatComponentSerializer(true)
-                );
-
-        watcher.setObject(dataWatcherObject, chatComponent);
-
+        WrappedChatComponent chatComponent = WrappedChatComponent.fromJson("{\"text\":\"" + text + "\"}");
+        watcher.setObject(10, chatComponent);
 
         metaPacket.getWatchableCollectionModifier().write(0, watcher.getWatchableObjects());
 
