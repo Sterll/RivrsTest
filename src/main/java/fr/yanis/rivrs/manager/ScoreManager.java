@@ -14,7 +14,7 @@ public class ScoreManager {
 
     @Setter
     private int score;
-    private UUID uuid;
+    private final UUID uuid;
 
     public static ScoreManager getScoreManager(UUID player) {
         if (scoreMap.containsKey(player)) {
