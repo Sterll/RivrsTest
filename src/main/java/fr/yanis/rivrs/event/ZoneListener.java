@@ -3,6 +3,7 @@ package fr.yanis.rivrs.event;
 import fr.yanis.rivrs.RMain;
 import fr.yanis.rivrs.event.custom.PlayerEnterZoneEvent;
 import fr.yanis.rivrs.event.custom.PlayerExitZoneEvent;
+import fr.yanis.rivrs.manager.ScoreManager;
 import fr.yanis.rivrs.utils.HologramUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -21,7 +22,9 @@ public class ZoneListener implements Listener {
         final Location loc = e.getZone().getCuboid().getCenter();
         loc.setY(player.getLocation().getY());
 
-        HologramUtil.spawnTextDisplay(player, loc, RMain.getInstance().getConfig().getString("messages.HOLOGRAM_NAME"));
+        String message = RMain.getInstance().getConfig().getString("messages.HOLOGRAM_NAME").replace("%count%", String.valueOf( ScoreManager.getScoreManager(player.getUniqueId()).getScore().get()));
+
+        HologramUtil.spawnTextDisplay(player, loc, message);
 
     }
 
