@@ -13,6 +13,8 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -31,12 +33,12 @@ public class ZoneManager {
 
     private @NotNull BukkitTask task;
 
-    private @NotNull HashMap<UUID, Integer> score;
+    private @NotNull Set<UUID> players;
 
     public ZoneManager(@NotNull Cuboid cuboid, int interval){
         this.cuboid = cuboid;
         this.interval = interval;
-        this.score = new HashMap<>();
+        this.players = new HashSet<>();
 
         verifyTask = new BukkitRunnable() {
 
@@ -69,19 +71,21 @@ public class ZoneManager {
     }
 
     private void onInterval() {
-        score.keySet().forEach(uuid -> score.put( uuid, score.get(uuid) + 1));
+        players.forEach(player -> {
+            ScoreManager.getScoreManager(player).addScore(1);
+        });
     }
 
     public boolean isInZone(@NotNull Player player) {
-        return score.containsKey(player.getUniqueId());
+        return players.contains(player.getUniqueId());
     }
 
     public void addPlayer(@NotNull UUID uuid){
-        this.score.put(uuid, 0);
+        this.players.add(uuid);
     }
 
     public void removePlayer(@NotNull UUID uuid){
-        this.score.remove(uuid);
+        this.players.remove(uuid);
     }
 
 }
