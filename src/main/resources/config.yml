@@ -21,3 +21,6 @@ rabbitmq:
 # Configuration du jeu
 game:
   points_interval: 20 # Intervalle en ticks pour l'incrémentation des points
+
+messages:
+  HOLOGRAM_NAME: "<red>Your score: <yellow>%count%"
