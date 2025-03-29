@@ -24,8 +24,8 @@ public class ScoreMessageConsumer extends DefaultConsumer {
             switch (parts[0]){
                 case "create":
                     try {
-                        UUID playerUUID = UUID.fromString(parts[0]);
-                        int newScore = Integer.parseInt(parts[1]);
+                        UUID playerUUID = UUID.fromString(parts[1]);
+                        int newScore = Integer.parseInt(parts[2]);
 
                         ScoreManager.getScoreManager(playerUUID).setScore(newScore);
                         RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
