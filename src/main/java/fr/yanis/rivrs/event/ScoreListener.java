@@ -23,28 +23,30 @@ public class ScoreListener implements Listener {
         final UUID uuid = player.getUniqueId();
         final RMain plugin = RMain.getInstance();
 
-        try (Connection conn = plugin.getDatabaseManager().getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT score FROM player_scores WHERE uuid = ?");
-            ps.setString(1, uuid.toString());
-            ResultSet rs = ps.executeQuery();
-            int score = 0;
+        CompletableFuture.runAsync(() -> {
+            try (Connection conn = plugin.getDatabaseManager().getConnection()) {
+                PreparedStatement ps = conn.prepareStatement("SELECT score FROM player_scores WHERE uuid = ?");
+                ps.setString(1, uuid.toString());
+                ResultSet rs = ps.executeQuery();
+                int score = 0;
 
-            if (rs.next()) {
-                score = rs.getInt("score");
-            } else {
-                PreparedStatement insert = conn.prepareStatement("INSERT INTO player_scores (uuid, score) VALUES (?, ?)");
-                insert.setString(1, uuid.toString());
-                insert.setInt(2, 0);
-                insert.executeUpdate();
-                insert.close();
+                if (rs.next()) {
+                    score = rs.getInt("score");
+                } else {
+                    PreparedStatement insert = conn.prepareStatement("INSERT INTO player_scores (uuid, score) VALUES (?, ?)");
+                    insert.setString(1, uuid.toString());
+                    insert.setInt(2, 0);
+                    insert.executeUpdate();
+                    insert.close();
+                }
+                rs.close();
+                ps.close();
+
+                new ScoreManager(uuid, score);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            rs.close();
-            ps.close();
-
-            new ScoreManager(uuid, score);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        });
     }
 
     @EventHandler
@@ -63,7 +65,7 @@ public class ScoreListener implements Listener {
             try (Connection conn = plugin.getDatabaseManager().getConnection()) {
                 PreparedStatement ps = conn.prepareStatement("UPDATE player_scores SET score = ? WHERE uuid = ?");
 
-                ps.setInt(1, scoreManager.getScore());
+                ps.setInt(1, scoreManager.getScore().get());
                 ps.setString(2, uuid.toString());
                 ps.executeUpdate();
 
