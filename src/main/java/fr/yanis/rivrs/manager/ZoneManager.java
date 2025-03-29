@@ -73,14 +73,6 @@ public class ZoneManager {
 
     private void onInterval() {
         players.forEach(player -> {
-
-            ScoreManager scoreManager = ScoreManager.getScoreManager(player);
-
-            if(scoreManager != null)
-                scoreManager.addScore(1);
-            else
-                new ScoreManager(player, 1);
-
             RMain.getInstance().getRabbitMQManager().publishMessage("add:" + player + ":" + 1);
         });
     }
