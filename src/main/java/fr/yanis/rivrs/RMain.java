@@ -33,7 +33,11 @@ public final class RMain extends JavaPlugin {
         if(cuboid != null){
             getLogger().info("Zone chargée avec succès !");
 
-            new ZoneManager(cuboid, this.getConfig().getInt("game.points_interval"));
+            if(ZoneManager.getINSTANCE() == null){
+                new ZoneManager(cuboid, this.getConfig().getInt("game.points_interval"));
+            } else {
+                ZoneManager.getINSTANCE().setZone(cuboid);
+            }
         }
     }
 

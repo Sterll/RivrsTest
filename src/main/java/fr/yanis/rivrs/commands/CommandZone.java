@@ -44,7 +44,13 @@ public class CommandZone implements CommandExecutor {
         String pos1 = PosManager.getFirst(player.getUniqueId());
         String pos2 = PosManager.getSecond(player.getUniqueId());
 
-        new ZoneManager(new Cuboid(LocationSerializer.deserialize(pos1), LocationSerializer.deserialize(pos2)), RMain.getInstance().getConfig().getInt("game.points_interval"));
+        Cuboid cuboid = new Cuboid(LocationSerializer.deserialize(pos1), LocationSerializer.deserialize(pos2));
+
+        if(ZoneManager.getINSTANCE() == null){
+            new ZoneManager(cuboid, RMain.getInstance().getConfig().getInt("game.points_interval"));
+        } else {
+            ZoneManager.getINSTANCE().setZone(cuboid);
+        }
 
         return false;
     }
