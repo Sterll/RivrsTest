@@ -4,6 +4,7 @@ import fr.yanis.rivrs.commands.CommandCount;
 import fr.yanis.rivrs.commands.CommandPos;
 import fr.yanis.rivrs.commands.CommandZone;
 import fr.yanis.rivrs.database.mariadb.DatabaseManager;
+import fr.yanis.rivrs.database.rabbitmq.RabbitMQConnectionManager;
 import fr.yanis.rivrs.event.ScoreListener;
 import fr.yanis.rivrs.event.ZoneListener;
 import fr.yanis.rivrs.manager.ZoneManager;
@@ -14,10 +15,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
+@Getter
 public final class RMain extends JavaPlugin {
 
-    @Getter
     private DatabaseManager databaseManager;
+
+    private RabbitMQConnectionManager rabbitMQManager;
 
     @Override
     public void onEnable() {
@@ -26,6 +29,7 @@ public final class RMain extends JavaPlugin {
         this.loadCuboid();
 
         this.databaseManager = new DatabaseManager(this);
+        this.rabbitMQManager = new RabbitMQConnectionManager();
 
         this.getServer().getPluginManager().registerEvents(new ZoneListener(), this);
         this.getServer().getPluginManager().registerEvents(new ScoreListener(), this);
@@ -39,6 +43,9 @@ public final class RMain extends JavaPlugin {
     public void onDisable() {
         if (databaseManager != null)
             databaseManager.close();
+
+        if (rabbitMQManager != null)
+            rabbitMQManager.close();
     }
 
     public void loadCuboid(){

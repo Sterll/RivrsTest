@@ -47,6 +47,19 @@ public class RabbitMQConnectionManager {
         }
     }
 
+    private void startScoreConsumer() {
+        try {
+            Channel channel = this.getChannel();
+            String queueName = channel.queueDeclare().getQueue();
+            channel.queueBind(queueName, EXCHANGE_NAME, "");
+
+            Consumer consumer = new ScoreMessageConsumer(channel);
+            channel.basicConsume(queueName, true, consumer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Ferme la connexion et le channel
      */
