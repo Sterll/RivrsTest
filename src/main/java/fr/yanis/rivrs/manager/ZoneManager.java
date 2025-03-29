@@ -1,8 +1,12 @@
 package fr.yanis.rivrs.manager;
 
+import fr.yanis.rivrs.RMain;
 import fr.yanis.rivrs.utils.Cuboid;
+import jdk.jfr.consumer.RecordedMethod;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -15,13 +19,13 @@ public class ZoneManager {
     @Getter
     private static ZoneManager INSTANCE = null;
 
-    private int elapsedTick;
-
     @Setter
     private int interval;
 
     @Setter
     private @NotNull Cuboid zone;
+
+    private @NotNull BukkitTask task;
 
     private @NotNull Set<UUID> players;
 
@@ -29,16 +33,21 @@ public class ZoneManager {
         this.zone = zone;
         this.interval = interval;
         this.players = new HashSet<>();
-        this.elapsedTick = 0;
+
+        this.task = new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                onInterval();
+            }
+
+        }.runTaskTimer(RMain.getInstance(), 1L, interval);
 
         INSTANCE = this;
     }
 
-    private void onTick(){
-        if (elapsedTick % interval == 0){
-            // TODO: Add Score Here
-        }
-        elapsedTick++;
+    private void onInterval() {
+        // TODO: Add Score Here
     }
 
     public void addPlayer(@NotNull UUID uuid){
