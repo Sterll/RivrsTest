@@ -4,7 +4,6 @@ import fr.yanis.rivrs.event.custom.PlayerEnterZoneEvent;
 import fr.yanis.rivrs.event.custom.PlayerExitZoneEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ZoneListener implements Listener {
 
@@ -17,5 +16,4 @@ public class ZoneListener implements Listener {
     public void onExit(PlayerExitZoneEvent e){
         e.getZone().removePlayer(e.getPlayer().getUniqueId());
     }
-
 }

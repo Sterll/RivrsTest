@@ -1,7 +1,6 @@
 package fr.yanis.rivrs.manager;
 
 import fr.yanis.rivrs.utils.Cuboid;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;

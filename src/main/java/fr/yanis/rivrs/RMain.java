@@ -3,7 +3,6 @@ package fr.yanis.rivrs;
 import fr.yanis.rivrs.event.ZoneListener;
 import fr.yanis.rivrs.manager.ZoneManager;
 import fr.yanis.rivrs.utils.Cuboid;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
