@@ -31,7 +31,7 @@ public class CommandPos implements CommandExecutor {
 
                     if (posn == 1){
                         if (!PosManager.contains(uuid)){
-                            PosManager.set(uuid, locSerialized, locSerialized);
+                            PosManager.set(uuid, locSerialized, "");
                         } else {
                             PosManager.setFirst(uuid, locSerialized);
                         }
@@ -41,7 +41,7 @@ public class CommandPos implements CommandExecutor {
 
                     if (posn == 2){
                         if (!PosManager.contains(uuid)){
-                            PosManager.set(uuid, locSerialized, locSerialized);
+                            PosManager.set(uuid, "", locSerialized);
                         } else {
                             PosManager.setSecond(uuid, locSerialized);
                         }
