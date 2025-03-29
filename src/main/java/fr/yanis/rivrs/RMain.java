@@ -3,7 +3,7 @@ package fr.yanis.rivrs;
 import fr.yanis.rivrs.commands.CommandCount;
 import fr.yanis.rivrs.commands.CommandPos;
 import fr.yanis.rivrs.commands.CommandZone;
-import fr.yanis.rivrs.database.DatabaseManager;
+import fr.yanis.rivrs.database.mariadb.DatabaseManager;
 import fr.yanis.rivrs.event.ScoreListener;
 import fr.yanis.rivrs.event.ZoneListener;
 import fr.yanis.rivrs.manager.ZoneManager;

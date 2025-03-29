@@ -1,4 +1,4 @@
-package fr.yanis.rivrs.database;
+package fr.yanis.rivrs.database.mariadb;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
