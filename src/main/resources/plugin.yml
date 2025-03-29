@@ -8,7 +8,7 @@ website: https://yanis-benyacine.fr
 commands:
   setpos:
     description: Définit la postion x de la zone
-    usage: /setpos <x>
+    usage: /setpos [1|2]
     permission: rivrs.admin.setpos
 
 permissions:
