@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'fr.yanis'
@@ -61,4 +62,10 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    relocate 'com.zaxxer.hikari', 'fr.yanis.rivrs.shaded.hikari'
+    relocate 'org.mariadb.jdbc', 'fr.yanis.rivrs.shaded.mariadb'
 }
