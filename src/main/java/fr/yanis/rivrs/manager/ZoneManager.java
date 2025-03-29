@@ -2,7 +2,6 @@ package fr.yanis.rivrs.manager;
 
 import fr.yanis.rivrs.RMain;
 import fr.yanis.rivrs.utils.Cuboid;
-import jdk.jfr.consumer.RecordedMethod;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -10,8 +9,6 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
