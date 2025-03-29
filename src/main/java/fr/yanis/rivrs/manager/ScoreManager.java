@@ -6,24 +6,24 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
 public class ScoreManager {
 
-    private static HashMap<UUID, ScoreManager> scoreMap = new HashMap<>();
+    private static ConcurrentHashMap<UUID, ScoreManager> scoreMap = new ConcurrentHashMap<>();
 
     @Setter
     private int score;
     private final UUID uuid;
 
     public static ScoreManager getScoreManager(UUID player) {
+
         if (scoreMap.containsKey(player)) {
             return scoreMap.get(player);
-        } else {
-            ScoreManager scoreManager = new ScoreManager(player);
-            scoreMap.put(player, scoreManager);
-            return scoreManager;
         }
+
+        return null;
     }
 
     public ScoreManager(UUID uuid) {
