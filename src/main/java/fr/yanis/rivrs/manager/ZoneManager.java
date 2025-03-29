@@ -76,13 +76,12 @@ public class ZoneManager {
 
             ScoreManager scoreManager = ScoreManager.getScoreManager(player);
 
-            if(scoreManager != null) {
+            if(scoreManager != null)
                 scoreManager.addScore(1);
-                RMain.getInstance().getRabbitMQManager().publishMessage("add:" + player + ":" + 1);
-            }
-            else {
+            else
                 new ScoreManager(player, 1);
-            }
+
+            RMain.getInstance().getRabbitMQManager().publishMessage("add:" + player + ":" + 1);
         });
     }
 
