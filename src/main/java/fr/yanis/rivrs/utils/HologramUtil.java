@@ -44,9 +44,17 @@ public class HologramUtil {
         PacketContainer metaPacket = protocolManager.createPacket(PacketType.Play.Server.ENTITY_METADATA);
         metaPacket.getIntegers().write(0, entityId);
 
-        WrappedDataWatcher watcher = new WrappedDataWatcher();
         WrappedChatComponent chatComponent = WrappedChatComponent.fromJson("{\"text\":\"" + text + "\"}");
-        watcher.setObject(10, chatComponent);
+        WrappedDataWatcher watcher = new WrappedDataWatcher();
+
+        WrappedDataWatcher.WrappedDataWatcherObject dataWatcherObject =
+                new WrappedDataWatcher.WrappedDataWatcherObject(
+                        10,
+                        WrappedDataWatcher.Registry.getChatComponentSerializer(true)
+                );
+
+        watcher.setObject(dataWatcherObject, chatComponent);
+
 
         metaPacket.getWatchableCollectionModifier().write(0, watcher.getWatchableObjects());
 
