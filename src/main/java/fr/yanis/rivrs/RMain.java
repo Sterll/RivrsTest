@@ -1,6 +1,8 @@
 package fr.yanis.rivrs;
 
+import fr.yanis.rivrs.commands.CommandCount;
 import fr.yanis.rivrs.commands.CommandPos;
+import fr.yanis.rivrs.commands.CommandZone;
 import fr.yanis.rivrs.event.ZoneListener;
 import fr.yanis.rivrs.manager.ZoneManager;
 import fr.yanis.rivrs.utils.Cuboid;
@@ -20,6 +22,8 @@ public final class RMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ZoneListener(), this);
 
         Objects.requireNonNull(this.getCommand("setpos"), "§cLa command '/setpos' n'existe pas").setExecutor(new CommandPos());
+        Objects.requireNonNull(this.getCommand("createzone"), "§cLa command '/createzone' n'existe pas").setExecutor(new CommandZone());
+        Objects.requireNonNull(this.getCommand("count"), "§cLa command '/count' n'existe pas").setExecutor(new CommandCount());
     }
 
     @Override

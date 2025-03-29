@@ -14,6 +14,10 @@ commands:
     description: Crée une cuboid
     usage: /createzone <name>
     permission: rivrs.admin.createzone
+  count:
+    description: Ajoute un nombre de score à un joueur
+    usage: /count <player> <number>
+    permission: rivrs.admin.count
 
 permissions:
   rivrs.admin.setpos:
@@ -21,4 +25,7 @@ permissions:
     default: op
   rivrs.admin.createzone:
     description: Permet de créer une cuboid
+    default: op
+  rivrs.admin.count:
+    description: Permet d'ajouter un nombre de score à un joueur
     default: op
