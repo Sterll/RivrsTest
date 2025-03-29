@@ -15,6 +15,7 @@ public class ScoreManager {
 
     private static ConcurrentHashMap<UUID, ScoreManager> scoreMap = new ConcurrentHashMap<>();
 
+    @Setter
     private AtomicInteger score;
     private final UUID uuid;
 
