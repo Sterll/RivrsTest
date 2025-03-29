@@ -68,6 +68,13 @@ public class ScoreMessageConsumer extends DefaultConsumer {
                                 scoreManager = new ScoreManager(playerUUID, newScore);
                             }
 
+                            final Player target =Bukkit.getPlayer(playerUUID);
+
+                            if (target != null) {
+                                String holo_message = RMain.getInstance().getConfig().getString("messages.HOLOGRAM_NAME").replace("%count%", String.valueOf( ScoreManager.getScoreManager(target.getUniqueId()).getScore().get()));
+                                HologramUtil.updateTextDisplay(target, holo_message);
+                            }
+
                             RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
                         } catch (Exception ex) {
                             ex.printStackTrace();
