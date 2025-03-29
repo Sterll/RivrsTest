@@ -16,8 +16,21 @@ public class PlayerEnterZoneEvent extends Event {
     private final Player player;
     private final ZoneManager zone;
 
-    @Override
+    /**
+     * Retrieves the list of handlers for this event.
+     *
+     * @return the list of handlers
+     */
     public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
+
+    /**
+     * Retrieves the list of handlers for this event.
+     *
+     * @return the list of handlers
+     */
+    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 }
