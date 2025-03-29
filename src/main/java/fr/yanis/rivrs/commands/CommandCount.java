@@ -43,7 +43,13 @@ public class CommandCount implements CommandExecutor {
                 player.sendMessage("§aVous avez ajouté " + count + " points à " + target.getName());
                 target.sendMessage("§aVous avez reçu " + count + " points de la part de " + player.getName());
 
-                ScoreManager.getScoreManager(target.getUniqueId()).addScore(count);
+                ScoreManager scoreManager = ScoreManager.getScoreManager(target.getUniqueId());
+
+                if(scoreManager == null){
+                    new ScoreManager(target.getUniqueId(), count);
+                } else {
+                    scoreManager.addScore(count);
+                }
 
                 return true;
         }

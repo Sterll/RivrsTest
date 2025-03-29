@@ -7,6 +7,7 @@ import fr.yanis.rivrs.RMain;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class ScoreMessageConsumer extends DefaultConsumer {
 
@@ -17,34 +18,52 @@ public class ScoreMessageConsumer extends DefaultConsumer {
     @Override
     public void handleDelivery(String consumerTag, Envelope envelope,
                                AMQP.BasicProperties properties, byte[] body) {
-        String message = new String(body, StandardCharsets.UTF_8);
 
-        String[] parts = message.split(":");
-        if (parts.length == 3) {
-            switch (parts[0]){
-                case "create":
-                    try {
-                        UUID playerUUID = UUID.fromString(parts[1]);
-                        int newScore = Integer.parseInt(parts[2]);
+        CompletableFuture.runAsync(() -> {
 
-                        ScoreManager.getScoreManager(playerUUID).setScore(newScore);
-                        RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    break;
-                case "add":
-                    try {
-                        UUID playerUUID = UUID.fromString(parts[1]);
-                        int newScore = Integer.parseInt(parts[2]);
+            String message = new String(body, StandardCharsets.UTF_8);
 
-                        ScoreManager.getScoreManager(playerUUID).addScore(newScore);
-                        RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    break;
+            String[] parts = message.split(":");
+            if (parts.length == 3) {
+                switch (parts[0]) {
+                    case "create":
+                        try {
+                            UUID playerUUID = UUID.fromString(parts[1]);
+                            int newScore = Integer.parseInt(parts[2]);
+
+                            ScoreManager scoreManager = ScoreManager.getScoreManager(playerUUID);
+
+                            if (scoreManager != null) {
+                                scoreManager.setScore(newScore);
+                            } else {
+                                scoreManager = new ScoreManager(playerUUID, newScore);
+                            }
+                            RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case "add":
+                        try {
+                            UUID playerUUID = UUID.fromString(parts[1]);
+                            int newScore = Integer.parseInt(parts[2]);
+
+                            ScoreManager scoreManager = ScoreManager.getScoreManager(playerUUID);
+
+                            if (scoreManager != null) {
+                                scoreManager.addScore(newScore);
+                            } else {
+                                scoreManager = new ScoreManager(playerUUID, newScore);
+                            }
+
+                            RMain.getInstance().getLogger().info("Score mis à jour pour " + playerUUID + " : " + newScore);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                }
             }
-        }
+
+        });
     }
 }

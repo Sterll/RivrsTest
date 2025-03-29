@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class ScoreListener implements Listener {
 
@@ -48,19 +49,29 @@ public class ScoreListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
-        final Player player = e.getPlayer();
-        final UUID uuid = player.getUniqueId();
-        final RMain plugin = RMain.getInstance();
+        CompletableFuture.runAsync(() -> {
 
-        try (Connection conn = plugin.getDatabaseManager().getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("UPDATE player_scores SET score = ? WHERE uuid = ?");
-            ps.setInt(1, ScoreManager.getScoreManager(uuid).getScore());
-            ps.setString(2, uuid.toString());
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+            final Player player = e.getPlayer();
+            final UUID uuid = player.getUniqueId();
+            final RMain plugin = RMain.getInstance();
+            final ScoreManager scoreManager = ScoreManager.getScoreManager(uuid);
+
+            if (scoreManager == null) {
+                return;
+            }
+
+            try (Connection conn = plugin.getDatabaseManager().getConnection()) {
+                PreparedStatement ps = conn.prepareStatement("UPDATE player_scores SET score = ? WHERE uuid = ?");
+
+                ps.setInt(1, scoreManager.getScore());
+                ps.setString(2, uuid.toString());
+                ps.executeUpdate();
+
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
 }

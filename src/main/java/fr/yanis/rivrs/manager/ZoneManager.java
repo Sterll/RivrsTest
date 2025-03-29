@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Score;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -72,7 +73,13 @@ public class ZoneManager {
 
     private void onInterval() {
         players.forEach(player -> {
-            ScoreManager.getScoreManager(player).addScore(1);
+
+            ScoreManager scoreManager = ScoreManager.getScoreManager(player);
+
+            if(scoreManager != null)
+                scoreManager.addScore(1);
+            else
+                new ScoreManager(player, 1);
         });
     }
 
