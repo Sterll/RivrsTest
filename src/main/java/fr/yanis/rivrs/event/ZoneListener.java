@@ -19,7 +19,7 @@ public class ZoneListener implements Listener {
         e.getZone().addPlayer(player.getUniqueId());
 
         final Location loc = e.getZone().getCuboid().getCenter();
-        loc.setY(player.getY());
+        loc.setY(player.getLocation().getY());
 
         HologramUtil.spawnTextDisplay(player, loc, RMain.getInstance().getConfig().getString("messages.HOLOGRAM_NAME"));
 
