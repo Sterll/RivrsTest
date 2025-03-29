@@ -20,7 +20,7 @@ public class ScoreManager {
         if (scoreMap.containsKey(player)) {
             return scoreMap.get(player);
         } else {
-            ScoreManager scoreManager = new ScoreManager();
+            ScoreManager scoreManager = new ScoreManager(player);
             scoreMap.put(player, scoreManager);
             return scoreManager;
         }
