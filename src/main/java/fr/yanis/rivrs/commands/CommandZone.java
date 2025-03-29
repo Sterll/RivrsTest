@@ -49,7 +49,7 @@ public class CommandZone implements CommandExecutor {
         if(ZoneManager.getINSTANCE() == null){
             new ZoneManager(cuboid, RMain.getInstance().getConfig().getInt("game.points_interval"));
         } else {
-            ZoneManager.getINSTANCE().setZone(cuboid);
+            ZoneManager.getINSTANCE().setCuboid(cuboid);
         }
 
         return false;

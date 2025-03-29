@@ -7,7 +7,6 @@ import fr.yanis.rivrs.utils.Cuboid;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Map;
 import java.util.Objects;
 
 public final class RMain extends JavaPlugin {
@@ -36,7 +35,7 @@ public final class RMain extends JavaPlugin {
             if(ZoneManager.getINSTANCE() == null){
                 new ZoneManager(cuboid, this.getConfig().getInt("game.points_interval"));
             } else {
-                ZoneManager.getINSTANCE().setZone(cuboid);
+                ZoneManager.getINSTANCE().setCuboid(cuboid);
             }
         }
     }

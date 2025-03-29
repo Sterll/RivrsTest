@@ -7,18 +7,18 @@ website: https://yanis-benyacine.fr
 
 commands:
   setpos:
-    description: Définit la postion x de la zone
+    description: Définit la postion x de la cuboid
     usage: /setpos [1|2]
     permission: rivrs.admin.setpos
   createzone:
-    description: Crée une zone
+    description: Crée une cuboid
     usage: /createzone <name>
     permission: rivrs.admin.createzone
 
 permissions:
   rivrs.admin.setpos:
-    description: Permet de définir la position x de la zone
+    description: Permet de définir la position x de la cuboid
     default: op
   rivrs.admin.createzone:
-    description: Permet de créer une zone
+    description: Permet de créer une cuboid
     default: op
