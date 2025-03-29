@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class ScoreManager {
@@ -14,7 +15,7 @@ public class ScoreManager {
     private static ConcurrentHashMap<UUID, ScoreManager> scoreMap = new ConcurrentHashMap<>();
 
     @Setter
-    private int score;
+    private AtomicInteger score;
     private final UUID uuid;
 
     public static ScoreManager getScoreManager(UUID player) {
@@ -28,24 +29,24 @@ public class ScoreManager {
 
     public ScoreManager(UUID uuid) {
         this.uuid = uuid;
-        this.score = 0;
+        this.score = new AtomicInteger(0);
 
         scoreMap.put(uuid, this);
     }
 
     public ScoreManager(UUID uuid, int score) {
         this.uuid = uuid;
-        this.score = score;
+        this.score = new AtomicInteger(score);
 
         scoreMap.put(uuid, this);
     }
 
     public void addScore(int score) {
-        this.score += score;
+        this.score.addAndGet(score);
     }
 
     public void removeScore(int score) {
-        this.score -= score;
+        this.score.addAndGet(-score);
     }
 
 }
